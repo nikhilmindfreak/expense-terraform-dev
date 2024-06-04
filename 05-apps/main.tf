@@ -44,14 +44,14 @@ module "ansible" {
   # convert StringList to list and get first element
   subnet_id = local.public_subnet_id
   ami = data.aws_ami.ami_info.id
-  user_data = file("expense.sh")  # we giving input to user data 
+  user_data = file("./expense.sh")  # we giving input to user data 
   tags = merge(
     var.common_tags,
     {
         Name = "${var.project_name}-${var.environment}-ansible"
     }
   )
-  depends_on = [ module.backend,module.frontend ]
+  depends_on = [ module.backend,module.frontend ]  # we are giving explicit for configuring the backend and frontend before ansible
 }
 
 module "records" {
